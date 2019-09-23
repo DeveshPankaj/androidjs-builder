@@ -1,10 +1,5 @@
 # Addroidjs
-### Platform to build fully featured android app in node js.
-
-- Quick start
-    - install android js from 'npm' ``$ sudo npm i -g androidjs-builder ``
-    - generate project structure ``$ androidjs init``
-    - build apk ``$ androidjs build``
+### Platform to build fully featured android app Using Node JS.
 
 ## install from npm
 ```bash
@@ -15,6 +10,8 @@ Since we have installed 'androidjs-builder' globally , it will provide all neces
 ## Generate new project
 ```bash
 $ androidjs init
+
+? Application name: myapp
 ```
 This command will generate a basic structure for quick start
 
@@ -40,9 +37,11 @@ This command will generate a basic structure for quick start
 
 ## Build project
 ```bash
-$ cd myfirstapp
+$ cd myapp
 $ androidjs build
-$ androidjs build --install
+
+or
+$ androidjs b
 ```
 it will create apk inside ``./myapp/dist/``
 
@@ -50,8 +49,26 @@ build and install uses system 'adb' command.
 
 ## Update androidjs-sdk
 ```bash
-$ androidjs u
 $ androidjs update
+
+or
+$ androidjs u
+```
+
+## FullScreen Activity
+```json
+package.json
+{
+    ...
+    ...
+    "theme": {
+        "fullScreen": true,
+        "colorAccent": "@color/colorAccent",
+        "colorPrimary": "@color/colorPrimary",
+        "colorPrimaryDark": "@color/colorPrimaryDark"
+    }
+    ...
+}
 ```
 
 
