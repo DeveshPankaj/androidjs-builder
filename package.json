@@ -1,7 +1,7 @@
 {
   "name": "androidjs-builder",
+  "version": "2.0.3",
   "description": "",
-  "version": "2.1.0",
   "license": "MIT",
   "author": {
     "name": "Pankaj Devesh",
