@@ -1,0 +1,42 @@
+
+app: androidjs
+
+
+builder:
+  html:
+    sdk: https://github.com/android-js/sdk-static
+    repo: https://github.com/android-js/webview-app-template
+    tools:
+      apktool: ../../bin/build_tools/apktool.jar
+      signer: ../../bin/build_tools/uber-apk-signer-1.0.0.jar
+
+  react:
+    sdk: https://github.com/android-js/androidjs-sdk
+#    sdk: https://github.com/android-js/sdk-static
+    repo: https://github.com/deveshpankaj/androidjs-react-app
+    tools:
+      apktool: ../../bin/build_tools/apktool.jar
+      signer: ../../bin/build_tools/uber-apk-signer-1.0.0.jar
+
+# TODO: create grunt file
+commands:
+  build: grunt build
+  publish: grunt publish
+  watch: grunt watch
+
+commander:
+  init: ./commands/init.command
+  build: ./commands/build.command
+  update: ./commands/update.command
+
+
+include:
+  init: # define path wrt init command file
+    - ../generators/html.generator
+    - ../generators/react.generator
+
+  build:
+    - ../builders/html.builder
+    - ../builders/react.builder
+
+
