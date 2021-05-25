@@ -1,4 +1,4 @@
-import Generator from './generator'
+import Generator, { ConfigData, Params } from './generator'
 import {Context} from "../utils/getcontext";
 import {existsSync, mkdirSync} from "fs";
 import path from "path";
@@ -8,14 +8,26 @@ import createLogger from '../utils/getlogger'
 
 const logger = createLogger(__filename)
 
-export default class HtmlGenerator implements Generator {
-    static type: string = 'html'
+/**
+ * @Generator HtmlGenerator
+ * 
+ *```typescript
+ * const generator = new HtmlGenerator()
+ * let params = {name: 'MyApp'}
+ * let config = {repo: 'https://github.com/deveshpankaj/androidjs-html-app'}
+ * generator.generate(params, config)
+ * 
+ * // $ npm i androidjs-builder -g
+ * // $ androidjs init --name Myapp --type html
+ * ```
+ */
+export class HtmlGenerator implements Generator {
     context: Context
     constructor() {
         this.context = Context.get()
     }
 
-    generate(params: any): Promise<any> {
+    generate(params: Params, config: ConfigData): Promise<any> {
         return new Promise((resolve, reject) => {
             logger?.info(`Generating app using: ${this.constructor.name}.`)
 
@@ -24,10 +36,10 @@ export default class HtmlGenerator implements Generator {
             }
 
             mkdirSync(path.join(this.context.project_dir, params.name), { recursive: true })
-            clone_repository(this.context.config.builder.html.repo, path.join(this.context.project_dir, params.name))
+            clone_repository(config.repo, path.join(this.context.project_dir, params.name))
                 .then(_ => {
                     fs.rmdirSync(path.join(this.context.project_dir, params.name, '.git'), {recursive: true})
-                    return resolve()
+                    return resolve(0)
                 }).catch(error => {
                 logger?.error(JSON.stringify({error}))
             })
@@ -35,3 +47,4 @@ export default class HtmlGenerator implements Generator {
     }
 }
 
+export default HtmlGenerator

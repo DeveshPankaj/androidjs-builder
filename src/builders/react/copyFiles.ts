@@ -12,8 +12,8 @@ export class CopyFiles extends Task {
 
         logger.debug('Copy file required for node app')
 
-        const srcDir = path.join(context.project_dir, 'src', 'backend')
-        const destDir = path.join(data.env_object.BUILD_PATH, '..');
+        const srcDir = path.join(context.project_dir, 'src', 'backend')// TODO: provide option to change backend directory
+        const destDir = path.join(context.project_dir, data.env_object.BUILD_PATH, '..'); 
 
         if(!fse.existsSync(srcDir)) {
             logger.error(`${srcDir} not found`)
@@ -48,13 +48,13 @@ export class CopyFiles extends Task {
                         if (fs.lstatSync(n).isDirectory()) {
                             return true;
                         }
-
-                        return ignore;
+                        return true;
                     }
                 },
                 (error) => {
                     if(error) throw error
                     this.next(data)
+                    console.log('Done!')
                 }
             );
         } catch (error) {
@@ -62,6 +62,5 @@ export class CopyFiles extends Task {
             throw error
         }
 
-        // this.next(data)
     }
 }

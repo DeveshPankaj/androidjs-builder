@@ -18,13 +18,13 @@ export class Init extends Task {
 
         /// Checking tools required to build
         logger.debug('Checking required tools')
-        let tools = {...context.config.builder.react.tools} as {[key: string]: string}
+        let tools = {...data.config.tools} as {[key: string]: string}
         for(const [tool_name, tool_path] of Object.entries(tools)) {
             logger.debug(`Checking ${tool_name}`)
 
             let tool: string
             try {
-                tool = path.join(__dirname, tool_path)
+                tool = path.join(context.builder_dir, tool_path)
             } catch (error) {
                 logger.error(`Failed to parse ${tool_path}`)
                 throw error
@@ -48,11 +48,11 @@ export class Init extends Task {
         }
         const env_file_data = fs.readFileSync(env_file)
         const env = (env_file_data.toString() || " ").split('\r\n')
-        const env_object: {[key: string]: string} = {}
+        const env_object: {[key: string]: string} = {...process.env as {}}
 
         // load .env
         for(let e of env) {
-            if(e[0] === '#' || e[0] === '\r')continue
+            if(e[0] === '#' || e[0] === '\r') continue
             let i = e.indexOf('=')
             let key = e.substring(0, i)
             if(key)env_object[key] = e.substring(i + 1)
@@ -87,21 +87,21 @@ export class Init extends Task {
         Object.assign(data, {_env: env})
         Object.assign(data, {env_object})
 
-        /// Checking Java Version
-        findJavaHome({allowJre: true}, (error: any, home: string) => {
-            if(error) throw JSON.stringify({error})
-            logger.info(`Using JAVA_HOME: ${home}`)
 
-            /// Set JAVA_HOME that can be used by next commands
-            data.JAVA_HOME = home
+        if(!process.env.JAVA_HOME) {
+            logger?.error(`Can not find JAVA_HOME in environment variables`)
+            throw JSON.stringify({error: 'Can not find JAVA_HOME in environment variables'})
+        }
 
-            this.download_sdk(data, () => this.next(data))
-        })
+        /// Set JAVA_HOME that can be used by next commands
+        data.JAVA_HOME = process.env.JAVA_HOME
+        logger.info(`Using JAVA_HOME: ${data.JAVA_HOME}`)
+
+        this.download_sdk(data, () => this.next(data))
     }
 
     private download_sdk(data: any, callback: any) {
         // TODO: call project/package.json:[androidjs:prebuild]
-        // TODO: delete sdk on force build
         // TODO: download sdk, as per the configuration (static/with node)
         let sdkFolder = path.join(data.project.build_path, '.androidjs')
 
@@ -116,7 +116,7 @@ export class Init extends Task {
             callback(data)
         } else {
             logger.info('.androidjs not found')
-            clone_repository(context.config.builder.react.sdk, sdkFolder).then(_ => {
+            clone_repository(data.config.sdk, sdkFolder).then(_ => {
                 fs.rmdirSync(path.join(sdkFolder, '.git'), {recursive: true, retryDelay: 500, maxRetries: 2})
                 callback(data)
             })

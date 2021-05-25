@@ -1,7 +1,5 @@
 import {Command} from "commander"
 
-const cmd = new Command('update').alias('u')
-
-cmd.description('Update builder')
-
-export default cmd
+export default (commandName: string, cmd: Command) => {
+    cmd.alias('u').description('Update builder')
+}

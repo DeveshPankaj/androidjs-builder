@@ -4,8 +4,7 @@ import createLogger from "../../utils/getlogger";
 const logger = createLogger(__filename)
 export class BuildProject extends Task {
     execute(data: any): void {
-        logger.info('Build project')
-
+        logger.debug('Build project not required for html app.')
         this.next(data)
     }
 }
