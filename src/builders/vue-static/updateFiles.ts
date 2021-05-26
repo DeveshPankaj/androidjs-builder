@@ -5,8 +5,6 @@ const xml2js = require('xml2js');
 import {Context} from "../../utils/getcontext";
 import path from "path";
 import * as fs from "fs";
-
-
 const logger = createLogger(__filename)
 const context = Context.get()
 
@@ -29,6 +27,7 @@ export class UpdateFiles extends Task {
         }
     }
 }
+
 
 // Update package name, set permissions
 class UpdateAndroidManifest extends Task {
@@ -57,6 +56,8 @@ class UpdateAndroidManifest extends Task {
             logger.info(`Building app in debug mode.`);
         }
 
+        
+
         let androidManifest = fs.readFileSync(androidManifestPath);
         let manifest_data = androidManifest.toString()
         let parser = new xml2js.Parser();
@@ -83,8 +84,6 @@ class UpdateAndroidManifest extends Task {
             logger.debug(updated_document)
             this.next(data)
         })
-
-        // this.next(data)
     }
 }
 
@@ -113,6 +112,7 @@ class UpdateColor extends Task {
             if(error) throw error
 
             document.resources.color = (document.resources.color).filter(x => colors[x.$.name] === undefined)
+            logger?.debug('COLORS: '+JSON.stringify(colors, null, 4))
 
             for(const [key, value] of Object.entries(colors)) {
                 document.resources.color.push({
@@ -137,7 +137,7 @@ class UpdateStyle extends Task {
 
         const pkg = require(path.join(context.project_dir, 'package.json'));
         const styleXMLPath = path.join(data.project.build_path, '.androidjs', 'res', 'values', 'styles.xml');
-        const fullScreen = (pkg.theme || {}).fullScreen
+        const fullScreen = (pkg.theme || {fullScreen: false}).fullScreen
 
         const stylesData = fs.readFileSync(styleXMLPath);
         const parser = new xml2js.Parser();
@@ -171,6 +171,7 @@ class UpdateStyle extends Task {
                 return x
             });
 
+            
             const updated_document = builder.buildObject(document);
             fs.writeFileSync(styleXMLPath, updated_document);
 

@@ -14,16 +14,19 @@ commands:
 commands.init:
   html: ./${BUILDER_DIST_NAME}/generators/html.generator
   html-static: ./${BUILDER_DIST_NAME}/generators/html-static.generator
+  vue-static: ./${BUILDER_DIST_NAME}/generators/vue-static.generator
   react: ./${BUILDER_DIST_NAME}/generators/react.generator
 
 commands.build:
   html: ./${BUILDER_DIST_NAME}/builders/html.builder
   html-static: ./${BUILDER_DIST_NAME}/builders/html-static.builder
+  vue-static: ./${BUILDER_DIST_NAME}/builders/vue-static.builder
   react: ./${BUILDER_DIST_NAME}/builders/react.builder
 
 commands.update:
-  html: ./${BUILDER_DIST_NAME}/updaters/html.updater
-  react: ./${BUILDER_DIST_NAME}/updater/react.updater
+  # html: ./${BUILDER_DIST_NAME}/updaters/html.updater
+  # react: ./${BUILDER_DIST_NAME}/updater/react.updater
+  # vue-static: ./${BUILDER_DIST_NAME}/updater/react.updater
 
 
 
@@ -33,6 +36,9 @@ commands.init.html:
 
 commands.init.html-static:
   repo: https://github.com/android-js/static-app-template
+
+commands.init.vue-static:
+  repo: https://github.com/deveshpankaj/vue-static-template
 
 commands.init.react:
   repo: https://github.com/deveshpankaj/androidjs-react-app
@@ -51,6 +57,12 @@ commands.build.react:
     signer: ./bin/build_tools/uber-apk-signer-1.0.0.jar
 
 commands.build.html-static:
+  sdk: https://github.com/android-js/sdk-static
+  tools:
+    apktool: ./bin/build_tools/apktool.jar
+    signer: ./bin/build_tools/uber-apk-signer-1.0.0.jar
+
+commands.build.vue-static:
   sdk: https://github.com/android-js/sdk-static
   tools:
     apktool: ./bin/build_tools/apktool.jar

@@ -40,7 +40,7 @@ class UpdateAndroidManifest extends Task {
 
         const app_name = pkg['app-name'] || pkg['name'];
         const package_name = pkg['package-name'];
-        const permissions: Array<string> = pkg['permission'];
+        const permissions: Array<string> = pkg['permission'] || [];
 
         if(!package_name) {
             logger.error('package-name not found in package.json')
@@ -72,6 +72,7 @@ class UpdateAndroidManifest extends Task {
             document.manifest['uses-permission'] = []
             for(const permission of permissions) {
                 document.manifest['uses-permission'].push({$: {'android:name': permission}})
+                logger?.info(`Added Permission: ${permission}`)
             }
 
             // replace AndroidManifest
