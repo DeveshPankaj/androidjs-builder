@@ -7,7 +7,7 @@ import clone_repository from "../utils/clone_repository";
 import createLogger from '../utils/getlogger'
 
 const logger = createLogger(__filename)
-
+const context  = Context.get()
 /**
  * @Generator HtmlGenerator
  * 
@@ -39,6 +39,9 @@ export class HtmlGenerator implements Generator {
             clone_repository(config.repo, path.join(this.context.project_dir, params.name))
                 .then(_ => {
                     fs.rmdirSync(path.join(this.context.project_dir, params.name, '.git'), {recursive: true})
+                    console.log(`%c$ %ccd ${params.name}`,'color:green', 'color: unset')
+                    console.log(`%c$ %cnpm install`,'color:green', 'color: unset')
+                    console.log(`%c$ %c${context.config.app} build`, 'color:green', 'color: unset')
                     return resolve(0)
                 }).catch(error => {
                 logger?.error(JSON.stringify({error}))

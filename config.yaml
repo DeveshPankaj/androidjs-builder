@@ -16,14 +16,16 @@ commands.init:
   html-static: ./${BUILDER_DIST_NAME}/generators/html-static.generator
   vue-static: ./${BUILDER_DIST_NAME}/generators/vue-static.generator
   react: ./${BUILDER_DIST_NAME}/generators/react.generator
+  react-native: ./${BUILDER_DIST_NAME}/generators/react-native.generator
 
 commands.build:
   html: ./${BUILDER_DIST_NAME}/builders/html.builder
   html-static: ./${BUILDER_DIST_NAME}/builders/html-static.builder
   vue-static: ./${BUILDER_DIST_NAME}/builders/vue-static.builder
   react: ./${BUILDER_DIST_NAME}/builders/react.builder
+  react-native: ./${BUILDER_DIST_NAME}/builders/react-native.builder
 
-commands.update:
+commands.update:   
   # html: ./${BUILDER_DIST_NAME}/updaters/html.updater
   # react: ./${BUILDER_DIST_NAME}/updater/react.updater
   # vue-static: ./${BUILDER_DIST_NAME}/updater/react.updater
@@ -43,6 +45,9 @@ commands.init.vue-static:
 commands.init.react:
   repo: https://github.com/deveshpankaj/androidjs-react-app
 
+commands.init.react-native:
+  repo: https://github.com/android-js/androidjs-core-react-native
+
 
 commands.build.html:
   sdk: https://github.com/android-js/androidjs-sdk
@@ -55,6 +60,8 @@ commands.build.react:
   tools:
     apktool: ./bin/build_tools/apktool.jar
     signer: ./bin/build_tools/uber-apk-signer-1.0.0.jar
+
+commands.build.react-native:
 
 commands.build.html-static:
   sdk: https://github.com/android-js/sdk-static

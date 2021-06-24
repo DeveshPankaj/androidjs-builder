@@ -2,8 +2,8 @@
 module.exports = (grunt) => {
     /***
      * TODO:
-     *      - copy bin folder to dist
-     *      - copy package.json to dist (remove dev-dep)
-     *      - build docs
+     *      - add watch command
+     *      - generate doc before publishing on github
+     *      - build before publishing on npm
      */
 }
