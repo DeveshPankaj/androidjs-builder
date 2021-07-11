@@ -1,0 +1,76 @@
+
+app: androidjs
+
+app.cache-dir: ${BUILDER_CACHE_DIR}
+
+
+# Add Commands
+commands:
+  init: ./${BUILDER_DIST_NAME}/commands/init.command
+  build: ./${BUILDER_DIST_NAME}/commands/build.command
+  update: ./${BUILDER_DIST_NAME}/commands/update.command
+
+# Add Controllers
+commands.init:
+  html: ./${BUILDER_DIST_NAME}/generators/html.generator
+  html-static: ./${BUILDER_DIST_NAME}/generators/html-static.generator
+  vue-static: ./${BUILDER_DIST_NAME}/generators/vue-static.generator
+  react: ./${BUILDER_DIST_NAME}/generators/react.generator
+  react-native: ./${BUILDER_DIST_NAME}/generators/react-native.generator
+
+commands.build:
+  html: ./${BUILDER_DIST_NAME}/builders/html.builder
+  html-static: ./${BUILDER_DIST_NAME}/builders/html-static.builder
+  vue-static: ./${BUILDER_DIST_NAME}/builders/vue-static.builder
+  react: ./${BUILDER_DIST_NAME}/builders/react.builder
+  react-native: ./${BUILDER_DIST_NAME}/builders/react-native.builder
+
+commands.update:   
+  # html: ./${BUILDER_DIST_NAME}/updaters/html.updater
+  # react: ./${BUILDER_DIST_NAME}/updater/react.updater
+  # vue-static: ./${BUILDER_DIST_NAME}/updater/react.updater
+
+
+
+# Add Controller data
+commands.init.html:
+  repo: https://github.com/android-js/webview-app-template
+
+commands.init.html-static:
+  repo: https://github.com/android-js/static-app-template
+
+commands.init.vue-static:
+  repo: https://github.com/deveshpankaj/vue-static-template
+
+commands.init.react:
+  repo: https://github.com/deveshpankaj/androidjs-react-app
+
+commands.init.react-native:
+  repo: https://github.com/android-js/androidjs-core-react-native
+
+
+commands.build.html:
+  sdk: https://github.com/android-js/androidjs-sdk
+  tools:
+    apktool: ./bin/build_tools/apktool.jar
+    signer: ./bin/build_tools/uber-apk-signer-1.0.0.jar
+
+commands.build.react:
+  sdk: https://github.com/android-js/androidjs-sdk
+  tools:
+    apktool: ./bin/build_tools/apktool.jar
+    signer: ./bin/build_tools/uber-apk-signer-1.0.0.jar
+
+commands.build.react-native:
+
+commands.build.html-static:
+  sdk: https://github.com/android-js/sdk-static
+  tools:
+    apktool: ./bin/build_tools/apktool.jar
+    signer: ./bin/build_tools/uber-apk-signer-1.0.0.jar
+
+commands.build.vue-static:
+  sdk: https://github.com/android-js/sdk-static
+  tools:
+    apktool: ./bin/build_tools/apktool.jar
+    signer: ./bin/build_tools/uber-apk-signer-1.0.0.jar

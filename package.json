@@ -1,63 +1,39 @@
 {
   "name": "androidjs-builder",
-  "version": "2.0.3",
+  "version": "1.0.0",
   "description": "",
-  "license": "MIT",
-  "author": {
-    "name": "Pankaj Devesh",
-    "email": "pankajdevesh3@gmail.com"
-  },
+  "main": "index.js",
   "scripts": {
-    "clear": "rm -rf dist/",
-    "clear:all": "rm -rf node_modules/ && npm run clear",
-    "test": "jest",
-    "start": "tsc && node dist/index.js",
-    "dev": "ts-node src/bin.ts",
-    "build": "tsc",
-    "build:watch": "tsc --watch",
-    "postversion": "git push --tags",
-    "docs": "./node_modules/.bin/typedoc.cmd --out dist/docs --mode modules ./src/"
+    "start": "node ./dist/index.js",
+    "build": "grunt build",
+    "watch": "tsc --watch",
+    "link": "npm link",
+    "docs": "npx typedoc --out docs src --theme default --name AndroidJS --includeVersion"
   },
   "bin": {
-    "androidjs": "./dist/src/bin.js"
+    "androidjs": "./dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/async": "^3.2.6",
+    "@types/fs-extra": "^9.0.11",
+    "grunt": "^1.3.0",
+    "typedoc": "^0.20.36",
+    "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@types/jest": "^25.1.3",
-    "@types/node": "^12.11.5",
-    "adm-zip": "^0.4.14",
-    "chalk": "^3.0.0",
-    "chokidar": "^3.3.1",
-    "find-java-home": "^1.1.0",
-    "fs-extra": "^8.1.0",
-    "inquirer": "^7.0.5",
-    "invalidate-module": "^1.0.0",
-    "js-yaml": "^3.13.1",
-    "list-github-dir-content": "^2.0.0",
+    "@types/inquirer": "^7.3.1",
+    "@types/node": "^14.14.41",
+    "commander": "^7.2.0",
+    "fs-extra": "^9.1.0",
+    "inquirer": "^8.0.0",
     "modify-xml": "^0.2.0",
-    "ora": "^4.0.2",
-    "replace-in-files": "^2.0.3",
-    "request": "^2.88.2",
-    "semver": "^7.1.3",
-    "superagent": "^5.2.2",
-    "ts-node": "^8.4.1",
-    "typedoc": "^0.16.10",
-    "typescript": "^3.6.4",
+    "nodegit": "^0.27.0",
+    "require-yml": "^2.0.0",
+    "winston": "^3.3.3",
     "xml2js": "^0.4.23",
-    "yargs": "^14.2.0",
-    "commander": "^6.0.0"
-  },
-  "maintainers": [],
-  "devDependencies": {
-    "jest": "^25.1.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:deveshpankaj/androidjs-builder"
-  },
-  "files": [
-    "src",
-    "package.json",
-    "tsconfig.json"
-  ],
-  "keywords": []
+    "yaml": "^1.10.2"
+  }
 }
